@@ -7,7 +7,6 @@ function login(req, res) {
     var body = req.body;
     var user = body.user;
     var pass = body.pass;
-
     let query = `SELECT usuarios.*, roles.rol_name, rp.is_all, rp.is_edit, rp.is_create, rp.is_delete, rp.is_read FROM usuarios INNER JOIN roles_usuarios ON usuarios.id=roles_usuarios.user_id INNER JOIN roles ON roles_usuarios.rol_id=roles.id INNER JOIN roles_permisos AS rp ON roles.id=rp.rol_id WHERE usuarios.user="${user}"`;
     conexion.query(query, function(error, result, field) {
         if (error)

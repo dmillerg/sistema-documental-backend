@@ -26,10 +26,12 @@ app.use(fileUpload());
 
 // Importamos las rutas
 var routes = require('./urls_api/url');
+const inicio = require('./controllers/apis');
 
 
 // Cargamos las rutas
 app.use('/apis', routes);
+app.get('/apis', inicio.getApis);
 
 
 app.post('/uploads', (req, res) => {

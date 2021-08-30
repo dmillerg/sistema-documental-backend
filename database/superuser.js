@@ -111,18 +111,18 @@ function saveSuperUsuario(req, res) {
             console.log(err);
             return res.status(400).send(`<h4 style="text-align: center">Error intentelo de nuevo, ${err}</h4>`);
         } else {
-            conexion.query(`INSERT INTO usuarios(id, user, password, full_name, register_date, register_hour,avatar) VALUES (NULL,"${user}","${encrypted}",NULL,NULL,NULL,NULL)`, function (error, results, fields) {
+            conexion.query(`INSERT INTO usuarios(id, user, password, full_name, register_date, register_hour,avatar) VALUES (NULL,"${user}","${encrypted}",NULL,NULL,NULL,NULL)`, function(error, results, fields) {
                 if (error) return res.status(400).send(`<h4 style="text-align: center">Error intentelo de nuevo, ${error}</h4>`);
                 if (results) {
                     id = results.insertId;
-                    conexion.query(`INSERT INTO roles(id, rol_name, description) VALUES (NULL,"root","root")`, function (error, results, fields) {
-                        if (error) { 
+                    conexion.query(`INSERT INTO roles(id, rol_name, description) VALUES (NULL,"root","root")`, function(error, results, fields) {
+                        if (error) {
                             console.log(error);
                         }
                         if (results) {
                             rol_id = results.insertId;
                             var query_rol = `INSERT INTO roles_usuarios(id, user_id, rol_id) VALUES (NULL, ${id}, ${rol_id})`;
-                            conexion.query(query_rol, function (error, results, fields) {
+                            conexion.query(query_rol, function(error, results, fields) {
                                 if (error)
                                     console.log(error);
                                 if (results) {
@@ -132,11 +132,11 @@ function saveSuperUsuario(req, res) {
                                 }
                             });
                             var query = `INSERT INTO roles_permisos(id, rol_id, is_all, is_edit, is_create, is_delete, is_read) VALUES (NULL,${rol_id},1,1,1,1,1)`;
-                            conexion.query(query, function (errors, results, fields) {
+                            conexion.query(query, function(errors, results, fields) {
                                 if (errors)
                                     console.log(errors);
                                 if (results) {
-                                    
+
                                 } else {
                                     // return res.status(404).send({ message: 'no existe ningun rol con ese id' });
                                 }
@@ -152,6 +152,8 @@ function saveSuperUsuario(req, res) {
         }
     });
 }
+
+
 
 module.exports = {
     createSuperUser,

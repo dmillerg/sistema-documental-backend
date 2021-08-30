@@ -52,6 +52,7 @@ function saveUsuario(req, res) {
 
 
 function getUsuarios(req, res) {
+    console.log('hola');
 
     var body = req.query;
     var user = body.user;
